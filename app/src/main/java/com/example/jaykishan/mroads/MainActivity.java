@@ -50,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
                 //dialog.getWindow().setLayout(1000, 500);
 
-                final EditText composeTo = (EditText)dialog.findViewById(R.id.editText);
-
-
-                Log.v("logger",composeTo.getText().toString());
-
                 FloatingActionButton innerFab =  (FloatingActionButton)dialog.findViewById(R.id.innerfab);
                 innerFab.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -64,10 +59,21 @@ public class MainActivity extends AppCompatActivity {
 //
 //                        Toast toast = Toast.makeText(context, "Mail is Sending", Toast.LENGTH_SHORT);
 //                        toast.show();
+                        final EditText composeTo = (EditText)dialog.findViewById(R.id.editText);
+
+                        String email = composeTo.getText().toString();
+
+                        if(email.contains("@") && email.endsWith(".com"))
+                        {
+                            new SendMailTask(MainActivity.this).execute(composeTo.getText().toString());
 
 
+                        }
+                        else
+                        {
+                            Toast.makeText(MainActivity.this,"Invalid EMail",Toast.LENGTH_SHORT).show();
+                        }
 
-                        new SendMailTask(MainActivity.this).execute(composeTo.getText().toString());
 
 
                         //toast.setText("Mail Sent");
@@ -175,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             toast.cancel();
             if(integer.intValue()==0)
             {
-                Toast.makeText(MainActivity.this, "Invalid Mail Address", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Email Doesn't Exist", Toast.LENGTH_SHORT).show();
             }
             else
             {
