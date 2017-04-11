@@ -2,7 +2,6 @@ package com.example.jaykishan.mroads;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     final Context context = this;
+    AlertDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                dialog.setTitle("Compose Email:");
 
-                final AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+                 dialog = new AlertDialog.Builder(MainActivity.this)
                         .setTitle( Html.fromHtml("<font color='#37474F'>Compose Email to:</font>"))
                         .setView(R.layout.custom_dialog)
                         .create();
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
                         String email = composeTo.getText().toString();
 
-                        if(email.contains("@") && email.endsWith(".com"))
+                        if(isValidEmail(email))
                         {
                             new SendMailTask(MainActivity.this).execute(composeTo.getText().toString());
 
@@ -89,6 +89,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public boolean isValidEmail(String string)
+    {
+
+        if(string.contains("@") && string.endsWith(".com"))
+        {
+            return true;
+        }
+
+
+        return false;
+
+
+    }
+
+
+    public AlertDialog getDialog()
+    {
+        return dialog;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -96,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         if(!MainActivity.hasActiveInternetConnection(getApplicationContext()))
         {
 
-            Toast.makeText(MainActivity.this,"Oops! Check Network Connection",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, R.string.no_network_connection,Toast.LENGTH_LONG).show();
         }
 
     }
@@ -110,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -137,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
 
     public class SendMailTask extends AsyncTask<String,String,Integer> {
 
-        private ProgressDialog statusDialog;
         private Activity sendMailActivity;
         Toast toast=new Toast(MainActivity.this);
 
@@ -154,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Log.i(LOG_CAT , "About to instantiate GMail...");
 
-                publishProgress("Processing");
+                publishProgress(getString(R.string.processing));
                 GMail androidEmail = new GMail(params[0].toString());
 
                 //publishProgress("Preparing mail message....");
@@ -181,11 +202,11 @@ public class MainActivity extends AppCompatActivity {
             toast.cancel();
             if(integer.intValue()==0)
             {
-                Toast.makeText(MainActivity.this, "Email Doesn't Exist", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.mail_not_sent, Toast.LENGTH_SHORT).show();
             }
             else
             {
-                Toast.makeText(MainActivity.this,"Mail Sent",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, R.string.mail_sent,Toast.LENGTH_SHORT).show();
             }
         }
     }

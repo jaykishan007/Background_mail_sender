@@ -2,4 +2,8 @@
     <string name="app_name">mroads</string>
     <string name="action_settings">Settings</string>
     <string name="Compose">To compose a Mail, click on the mail Icon below</string>
+    <string name="processing">Processing</string>
+    <string name="mail_not_sent">Mail Not Sent... Retry</string>
+    <string name="mail_sent">Mail Sent</string>
+    <string name="no_network_connection">Oops! Check Network Connection</string>
 </resources>
