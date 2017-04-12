@@ -24,8 +24,8 @@ public class GMail {
     final String starttls = "true";
     final String emailHost = "smtp.gmail.com";
 
-    private String fromEmail="jayakishan100@gmail.com";
-    private String fromPassword="52701021";
+    private String fromEmail="youremail@gmail.com";
+    private String fromPassword="yourpassword";
     private String toEmail;
     private String emailSubject="Mroads";
     private String emailBody="Message Drafted";
