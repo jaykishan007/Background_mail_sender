@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     final Context context = this;
     AlertDialog dialog;
+    String e_mail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,17 +62,17 @@ public class MainActivity extends AppCompatActivity {
 //                        toast.show();
                         final EditText composeTo = (EditText)dialog.findViewById(R.id.editText);
 
-                        String email = composeTo.getText().toString();
+                        e_mail = composeTo.getText().toString();
 
-                        if(isValidEmail(email))
+                        if(isValidEmail(e_mail))
                         {
-                            new SendMailTask(MainActivity.this).execute(composeTo.getText().toString());
 
+                            createAsyncExecuter(e_mail);
 
                         }
                         else
                         {
-                            Toast.makeText(MainActivity.this,"Invalid EMail",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, R.string.invalid_email,Toast.LENGTH_SHORT).show();
                         }
 
 
@@ -101,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
         return false;
 
 
+    }
+
+    public void createAsyncExecuter(String mail_to)
+    {
+
+        new SendMailTask(MainActivity.this).execute(mail_to);
     }
 
 

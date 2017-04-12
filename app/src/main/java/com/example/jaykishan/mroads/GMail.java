@@ -1,8 +1,6 @@
 package com.example.jaykishan.mroads;
 
 
-import android.util.Log;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
@@ -45,7 +43,7 @@ public class GMail {
         emailProperties.put("mail.smtp.port", emailPort);
         emailProperties.put("mail.smtp.auth", smtpAuth);
         emailProperties.put("mail.smtp.starttls.enable", starttls);
-        Log.i("GMail", "Mail server properties set.");
+//        Log.i("GMail", "Mail server properties set.");
     }
 
     public MimeMessage createEmailMessage() throws AddressException,
@@ -57,7 +55,7 @@ public class GMail {
 
         emailMessage.setFrom(new InternetAddress(fromEmail, fromEmail));
 
-            Log.i("GMail","toEmail: "+toEmail);
+//            Log.i("GMail","toEmail: "+toEmail);
             emailMessage.addRecipient(Message.RecipientType.TO,
                     new InternetAddress(toEmail.toString()));
 
@@ -72,7 +70,7 @@ public class GMail {
         // for a html email
 
 
-        Log.i("GMail", "Email Message created.");
+//        Log.i("GMail", "Email Message created.");
         return emailMessage;
     }
 
@@ -80,7 +78,7 @@ public class GMail {
 
         Transport transport = mailSession.getTransport("smtp");
         transport.connect(emailHost, fromEmail, fromPassword);
-        Log.i("GMail","allrecipients: "+emailMessage.getAllRecipients().toString());
+//        Log.i("GMail","allrecipients: "+emailMessage.getAllRecipients().toString());
         try {
             transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
         }
@@ -91,7 +89,7 @@ public class GMail {
 
             transport.close();
 
-        Log.i("GMail", "Email sent successfully.");
+//        Log.i("GMail", "Email sent successfully.");
         return 1;
     }
 

@@ -6,4 +6,7 @@
     <string name="mail_not_sent">Mail Not Sent... Retry</string>
     <string name="mail_sent">Mail Sent</string>
     <string name="no_network_connection">Oops! Check Network Connection</string>
+    <string name="email_id">jayakishan100@gmail.com</string>
+    <string name="invalid_email">Invalid EMail</string>
+    <string name="send_to">Send To</string>
 </resources>
